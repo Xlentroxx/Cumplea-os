@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Álbum de Cumpleaños</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fadee6;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: #ff6f91;
+            text-align: center;
+            font-size: 2em;
+            margin-top: 10px;
+            text-shadow: 2px 2px #ffe0e5;
+        }
+
+        .container {
+            position: relative;
+            width: 100vw;
+            height: calc(100vh - 60px);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .photo-container {
+            position: absolute;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            pointer-events: none;
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: auto;
+            max-height: 60vh;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .photo-container .message {
+            margin-top: 10px;
+            font-size: 1em;
+            color: #ff6f91;
+            background-color: #ffe0e5;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 90%;
+        }
+
+        .next-button {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ff6f91;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            z-index: 1000;
+        }
+
+        .next-button:hover {
+            background-color: #ff4462;
+        }
+
+        .intro-message, .intermediate-message, .final-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5em;
+            color: #ff6f91;
+            background-color: #ffe0e5;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            z-index: 10;
+            max-width: 80%;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+    </style>
+</head>
+<body>
+    <h1>Álbum de My Short Girl</h1>
+    <div class="container">
+        <div id="introMessage" class="intro-message">
+           Un pequeño regalo recordando algunos bonitos momentos
+        </div>
+
+        <div id="photo1" class="photo-container">
+            <img src="img/1.jpeg" alt="Foto 1">
+            <div class="message">Hermosa desde que eras una bebé.</div>
+        </div>
+        <div id="photo2" class="photo-container">
+            <img src="img/2.jpeg" alt="Foto 2">
+            <div class="message">Cumpliendo tus sueños poco a poco.</div>
+        </div>
+        <div id="photo3" class="photo-container">
+            <img src="img/3.jpeg" alt="Foto 3">
+            <div class="message">Con momentos inolvidables.</div>
+        </div>
+        <div id="photo4" class="photo-container">
+            <img src="img/4.jpeg" alt="Foto 4">
+            <div class="message">Consiguiendo amigas muy buenas.</div>
+        </div>
+        <div id="photo5" class="photo-container">
+            <img src="img/5.jpeg" alt="Foto 5">
+            <div class="message">Con muchos cambios en tu vida.</div>
+        </div>
+        <div id="photo6" class="photo-container">
+            <img src="img/6.jpeg" alt="Foto 6">
+            <div class="message">Pero conservando una belleza única.</div>
+        </div>
+        <div id="photo7" class="photo-container">
+            <img src="img/7.jpeg" alt="Foto 7">
+            <div class="message">Siempre tan inteligente y divertida.</div>
+        </div>
+        <div id="photo8" class="photo-container">
+            <img src="img/8.jpeg" alt="Foto 8">
+            <div class="message">Y esforzándote en todas las cosas que te apasionan.</div>
+        </div>
+        <div id="photo9" class="photo-container">
+            <img src="img/9.jpeg" alt="Foto 9">
+            <div class="message">Y has pasado por tantas cosas buenas y malas y...</div>
+        </div>
+        <div id="photo10" class="photo-container">
+            <img src="img/10.jpeg" alt="Foto 10">
+            <div class="message">Nunca te rendiste y lo conseguiste... por fin te graduaste</div>
+        </div>
+
+        <div id="intermediateMessage" class="intermediate-message">
+            Y hasta aqui llegamos... Ya eres toda una mujer adulta, una hermosa mujer adulta
+        </div>
+
+        <div id="finalMessage" class="final-message">
+            <strong>Feliz cumpleaños My short girl</strong> <br>
+            Hoy quiero que pases un muy bonito día por eso este pequeño regalo es para ti<br>
+            Espero que pases un hermoso día, que disfrutes de tu fiesta y de todos esos regalos que te darán <br>
+            Nunca olvides que TU eres única, muy especial<br>
+            Nunca dejaste de ser hermosa, al contrario, cada dia lo eres aun mas <br>
+            <strong>Felices 18 Mi Reina</strong>
+        </div>
+    </div>
+
+    <button id="nextButton" class="next-button" onclick="nextStep()">Siguiente</button>
+
+    <div class="music-controls">
+        <audio id="backgroundMusic" src="sound/Adele - Someone Like You (Official Music Video).mp3"></audio>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 14;  // Mensaje inicial + 10 fotos + mensaje intermedio + mensaje final
+        const introMessage = document.getElementById('introMessage');
+        const intermediateMessage = document.getElementById('intermediateMessage');
+        const finalMessage = document.getElementById('finalMessage');
+        
+        function nextStep() {
+            const music = document.getElementById('backgroundMusic');
+
+            // Mostrar el mensaje inicial en el primer paso
+            if (currentStep === 1) {
+                introMessage.style.opacity = '1';  // Mostrar mensaje inicial
+                music.play();
+            } else if (currentStep === 2) {
+                introMessage.style.opacity = '0';  // Ocultar mensaje inicial
+            }
+
+            // Ocultar todas las fotos y mensajes
+            for (let i = 1; i <= 10; i++) {
+                const photo = document.getElementById(`photo${i}`);
+                if (photo) {
+                    photo.style.opacity = '0';
+                    photo.style.pointerEvents = 'none';
+                }
+            }
+            intermediateMessage.style.opacity = '0';
+            finalMessage.style.opacity = '0';
+
+            // Mostrar el contenido correspondiente al paso actual
+            if (currentStep > 2 && currentStep <= 12) {
+                const currentPhoto = document.getElementById(`photo${currentStep - 2}`);
+                if (currentPhoto) {
+                    currentPhoto.style.opacity = '1';
+                    currentPhoto.style.pointerEvents = 'auto';
+                }
+            } else if (currentStep === 13) {
+                intermediateMessage.style.opacity = '1';
+            } else if (currentStep === 14) {
+                finalMessage.style.opacity = '1';
+            }
+
+            currentStep++;
+
+            if (currentStep > totalSteps) {
+                document.getElementById('nextButton').disabled = true;
+                document.getElementById('nextButton').innerText = 'Fin del recorrido';
+            }
+        }
+    </script>
+</body>
+</html>
